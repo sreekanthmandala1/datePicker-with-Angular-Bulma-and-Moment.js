@@ -1,38 +1,58 @@
-<div class="calendar">
-  <div class="calendar-nav">
-    <div class="calendar-nav-previous-month">
-      <button class="button is-text"
-        (click) = "changeNavMonth(-1)"
-        [disabled] = "!canChangeNavMonth(-1)">
-        <i class="fa fa-chevron-left" ></i>
-      </button>
-    </div>
-    <div>{{navDate.format('MMMM YYYY')}}</div>
-    <div class="calendar-nav-next-month">
-      <button class="button is-text"
-        (click) = "changeNavMonth(1)"
-        [disabled] = "!canChangeNavMonth(1)">
-        <i class="fa fa-chevron-right" ></i>
-      </button>
-    </div>
-  </div>
-  <div class="calendar-container">
-    <div class="calendar-header">
-      <div class="calendar-date"
-        *ngFor = "let day of weekDaysHeaderArr">
-        {{day}}
-      </div>
-    </div>
-    <div class="calendar-body">
+<!-- Button trigger modal -->
+<button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal">
+  Calendar
+</button>
 
-      <div *ngFor = "let day of gridArr" class="calendar-date" [class.is-disabled] = "!day.available">
-        <button *ngIf = "day.value !== 0" class="date-item" (click) = "selectDay(day)">{{day.value}}</button>
-        <button *ngIf = "day.value === 0" class="date-item"></button>
-      </div>
+<!-- Modal -->
+<div class="modal " id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true" data-bs-backdrop="false">
+  <div class="modal-dialog">
+    <div class="modal-content" style="width:70%">
+      <select class="form-select">
+        <option>
+            {{selectedDate | date: 'dd/MM/yyyy'}}
+        </option>
+      </select>
+      <div class="modal-body" style="display:flex;justify-content: center;">
+        <div class="calendar">
+          <div class="calendar-nav">
+            <div class="calendar-nav-previous-month">
+              <button class="button is-text"
+                (click) = "changeNavMonth(-1)"
+                [disabled] = "!canChangeNavMonth(-1)">
+                <i class="fa fa-chevron-left" ></i>
+              </button>
+            </div>
+            <div>{{navDate.format('MMMM YYYY')}}</div>
+            <div class="calendar-nav-next-month">
+              <button class="button is-text"
+                (click) = "changeNavMonth(1)"
+                [disabled] = "!canChangeNavMonth(1)">
+                <i class="fa fa-chevron-right" ></i>
+              </button>
+            </div>
+          </div>
+          <div class="calendar-container">
+            <div class="calendar-header">
+              <div class="calendar-date"
+                *ngFor = "let day of weekDaysHeaderArr">
+                {{day}}
+              </div>
+            </div>
+            <div class="calendar-body">
 
+              <div *ngFor = "let day of gridArr" class="calendar-date" [class.is-disabled] = "!day.available">
+                <button *ngIf = "day.value !== 0" class="date-item" (click) = "selectDay(day)">{{day.value}}</button>
+                <button *ngIf = "day.value === 0" class="date-item"></button>
+              </div>
+
+            </div>
+          </div>
+        </div>
+      </div>
+      <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Ok</button>
     </div>
   </div>
 </div>
-<div>
-  {{selectedDate}}
-</div>
+
+
+
